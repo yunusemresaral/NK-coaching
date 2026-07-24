@@ -1,0 +1,6 @@
+{
+  "name": "Uzaktan Eğitim ve Koçluk Platformu",
+  "description": "Neslihan Karga için özel olarak tasarlanmış, minimalist ve modern uzaktan eğitim, fitness, koşu ve HYROX koçluğu platformu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

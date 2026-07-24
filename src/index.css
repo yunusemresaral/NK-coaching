@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  
+  --color-brand-primary: #000000;
+  --color-brand-accent: #C41E3A; /* Ruby Red */
+  --color-brand-accent-light: #1C0A0C; /* Dark Ruby Red background tint */
+  --color-brand-beige: #000000; /* Primary background - Black */
+  --color-brand-gray: #CCCCCC; /* Light gray for subtext readability */
+}
+
+body {
+  background-color: #000000;
+  color: #FFFFFF;
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar to match minimalist theme */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFFFF;
+}
+::-webkit-scrollbar-thumb {
+  background: #E5E7EB;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1A1A1A;
+}
