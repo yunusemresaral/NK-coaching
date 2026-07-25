@@ -6,8 +6,17 @@ async function startServer() {
   const app = express();
   const PORT = 3000;
 
-  // X-Powered-By başlığını tamamen kaldır (Güvenlik zafiyet analizi tespiti engelleme)
+  // X-Powered-By başlığını tamamen kaldır
   app.disable("x-powered-by");
+
+  // HTTP -> HTTPS Otomatik Yönlendirme Middleware (Hardenize ve Mozilla Observatory HTTPS zorunluluğu)
+  app.use((req, res, next) => {
+    const forwardedProto = req.headers["x-forwarded-proto"];
+    if (forwardedProto && forwardedProto === "http") {
+      return res.redirect(301, `https://${req.headers.host}${req.url}`);
+    }
+    next();
+  });
 
   // A+ Düzeyi Güvenlik Duvarı & HTTP Security Headers Middleware
   app.use((_req, res, next) => {
@@ -23,16 +32,16 @@ async function startServer() {
     // Referrer Gizlilik Politikası
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     
-    // HSTS (2 Yıl + subdomains + preload) - Mozilla Observatory 100/100 kriteri
+    // HSTS (2 Yıl + subdomains + preload) - Hardenize & hstspreload.org 100/100 tam uyum
     res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
     
-    // İzinler Politikası (Donanım Kısıtlamaları)
+    // İzinler Politikası (Donanım ve Kamera/Mikrofon Kısıtlamaları)
     res.setHeader(
       "Permissions-Policy",
       "camera=(), microphone=(), geolocation=(), payment=(), usb=(), display-capture=(), accelerometer=(), gyroscope=(), magnetometer=(), autoplay=()"
     );
     
-    // Cross-Domain & Download Koruması
+    // Cross-Domain & Güvenlik Politikaları
     res.setHeader("X-Permitted-Cross-Domain-Policies", "none");
     res.setHeader("X-Download-Options", "noopen");
     res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
